@@ -28,7 +28,7 @@ declare global {
 
 }
 
-export class ReBarChart extends LitElement {
+export class WidgetBarchart extends LitElement {
 
   @property() inputData = {} as InputData
 

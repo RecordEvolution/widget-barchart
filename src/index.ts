@@ -1,1 +1,1 @@
-export { ReBarChart } from './ReBarChart.js';
+export { WidgetBarchart } from './WidgetBarchart.js';
