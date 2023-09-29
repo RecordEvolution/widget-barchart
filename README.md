@@ -12,7 +12,7 @@ npm i re-bar-chart
 
 ```html
 <script type="module">
-  import 're-bar-chart/re-bar-chart.js';
+  import 're-bar-chart/widget-barchart.js';
 </script>
 
 <re-bar-chart></re-bar-chart>

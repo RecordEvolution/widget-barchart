@@ -9,7 +9,7 @@
   "module": "dist/src/index.js",
   "exports": {
     ".": "./dist/src/index.js",
-    "./re-bar-chart.js": "./dist/src/re-bar-chart.js"
+    "./widget-barchart.js": "./dist/src/widget-barchart.js"
   },
   "scripts": {
     "analyze": "cem analyze --litelement",
