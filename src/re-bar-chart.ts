@@ -1,3 +1,3 @@
 import { ReBarChart } from './ReBarChart.js';
 
-window.customElements.define('re-bar-chart', ReBarChart);
+window.customElements.define('widget-barchart', ReBarChart);

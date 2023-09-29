@@ -4,10 +4,10 @@ import commonjs from "@rollup/plugin-commonjs";
 import babel from "@rollup/plugin-babel";
 
 export default {
-    input: './src/re-bar-chart.ts',
+    input: './src/widget-barchart.ts',
     output: {
         dir: './dist',
-        name: 're-bar-chart_bundle',
+        name: 'widget-barchart_bundle',
         banner: `/* @license Copyright (c) 2020 Record Evolution GmbH. All rights reserved.*/`,
         format: 'esm'
     },

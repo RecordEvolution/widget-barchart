@@ -1,21 +1,21 @@
-# \<re-bar-chart>
+# \<widget-barchart>
 
 This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
 
 ## Installation
 
 ```bash
-npm i re-bar-chart
+npm i widget-barchart
 ```
 
 ## Usage
 
 ```html
 <script type="module">
-  import 're-bar-chart/widget-barchart.js';
+  import 'widget-barchart/widget-barchart.js';
 </script>
 
-<re-bar-chart></re-bar-chart>
+<widget-barchart></widget-barchart>
 ```
 
 ## Expected data format

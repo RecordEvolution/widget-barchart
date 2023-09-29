@@ -1,8 +1,8 @@
 {
-  "name": "re-bar-chart",
-  "description": "REWidget re-bar-chart",
+  "name": "widget-barchart",
+  "description": "REWidget widget-barchart",
   "license": "MIT",
-  "author": "re-bar-chart",
+  "author": "widget-barchart",
   "version": "0.0.0",
   "type": "module",
   "main": "dist/src/index.js",
