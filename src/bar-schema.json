@@ -34,16 +34,11 @@
             "items": {
                 "type": "object",
                 "properties": {
-                    "data": {
-                        "type": "object",
-                        "properties": {
-                            "x": {
-                                "type": "number"
-                            },
-                            "y": {
-                                "type": "number"
-                            }
-                        }
+                    "x": {
+                        "type": "number"
+                    },
+                    "y": {
+                        "type": "number"
                     }
                 },
                 "required": []
