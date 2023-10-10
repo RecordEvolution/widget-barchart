@@ -4,15 +4,15 @@ import Chart from 'chart.js/auto';
 
 declare global {
   interface InputData {
-    settings: Settings
-    data: Data[]
+    settings: Settings,
+    dataseries: Data[],
+    style: Style
   }
 
   interface Settings {
     title: string,
     subTitle: string,
-    label: string,
-    style: Style
+    label: string
   }
 
   interface Style {
@@ -22,7 +22,7 @@ declare global {
   }
 
   interface Data {
-    x: String
+    x: String,
     y: Number
   }
 
@@ -43,7 +43,7 @@ export class WidgetBarchart extends LitElement {
   @state()
   private barLabel: string = 'Bar-chart label';
   @state()
-  private data: Data[] = []
+  private dataseries: Data[] = []
   @state()
   private backgroundColor: string[] = []
   @state()
@@ -67,18 +67,18 @@ export class WidgetBarchart extends LitElement {
   }
 
   createGaugeData() {
-    if(this.inputData && (!this.inputData?.settings?.title || !this.inputData?.data.length)) return
+    if(this.inputData && (!this.inputData?.settings?.title || !this.inputData?.dataseries.length)) return
 
     // Generel
     this.barTitle = this.inputData.settings.title ? this.inputData.settings.title : this.barTitle
     this.barDescription = this.inputData.settings.subTitle ? this.inputData.settings.subTitle : this.barDescription
     this.barLabel = this.inputData.settings.label ? this.inputData.settings.label : this.barLabel
-    this.data = this.inputData.data ? this.inputData.data : []
+    this.dataseries = this.inputData.dataseries ? this.inputData.dataseries : []
 
     // Style
-    this.backgroundColor = this.inputData.settings.style.backgroundColor ? this.inputData.settings.style.backgroundColor : this.backgroundColor
-    this.borderColor = this.inputData.settings.style.borderColor ? this.inputData.settings.style.borderColor : this.borderColor
-    this.borderWidth = this.inputData.settings.style.borderWidth ? this.inputData.settings.style.borderWidth : this.borderWidth
+    this.backgroundColor = this.inputData.style.backgroundColor ? this.inputData.style.backgroundColor : this.backgroundColor
+    this.borderColor = this.inputData.style.borderColor ? this.inputData.style.borderColor : this.borderColor
+    this.borderWidth = this.inputData.style.borderWidth ? this.inputData.style.borderWidth : this.borderWidth
 
   }
 
@@ -92,11 +92,11 @@ export class WidgetBarchart extends LitElement {
 			{
 				type: 'bar',
 				data: {
-					labels: this.data.map(row => row.x),
+					labels: this.dataseries.map(row => row.x),
 					datasets: [
 						{
               label: this.barLabel,
-							data: this.data.map(row => row.y),
+							data: this.dataseries.map(row => row.y),
               backgroundColor: this.backgroundColor,
               borderColor: this.borderColor,
               borderWidth: this.borderWidth

@@ -1,0 +1,83 @@
+{
+    "title": "Bar-chart",
+    "description": "Configure the bar-chart.",
+    "type": "object",
+    "properties": {
+        "settings": {
+            "title": "Bar widget settings",
+            "description": "General widget settings",
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "title": "Bar title",
+                    "placeholder": "This is a title"
+                },
+                "subTitle": {
+                    "type": "string",
+                    "title": "Bar description",
+                    "placeholder": "This is a description"
+                },
+                "label": {
+                    "type": "string",
+                    "title": "Label",
+                    "placeholder": "This is a label"
+                }
+                
+            }
+        },
+        "dataseries": {
+            "title": "Dataseries",
+            "description": "Dataseries array",
+            "type": "array",
+            "maxItems": 4,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "properties": {
+                            "x": {
+                                "type": "number"
+                            },
+                            "y": {
+                                "type": "number"
+                            }
+                        }
+                    }
+                },
+                "required": []
+            }
+        },
+        "style": {
+            "title": "Style",
+            "description": "Style array",
+            "type": "object",
+            "properties": {
+                "backgroundColor": {
+                    "title": "Backgroundcolor",
+                    "description": "Backgroundcolor array",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "borderColor": {
+                    "title": "Bordercolor",
+                    "description": "Bordercolor array",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "borderWidth": {
+                    "description": "Width od border",
+                    "type": "number"
+                }
+                
+            }
+        }
+        
+    },
+    "required": []
+}
