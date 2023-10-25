@@ -3,7 +3,7 @@
   "description": "REWidget widget-barchart",
   "license": "MIT",
   "author": "widget-barchart",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
