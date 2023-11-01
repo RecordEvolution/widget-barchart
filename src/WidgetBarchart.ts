@@ -54,13 +54,17 @@ export class WidgetBarchart extends LitElement {
   updated(changedProperties: Map<string, any>) {
     changedProperties.forEach((oldValue, propName) => {
       if (propName === 'inputData') {
-            if(oldValue?.data[0]) {
+            if(oldValue && oldValue?.data && oldValue?.data[0]) {
               this.createGaugeData()
               this.chartInstance?.update()
               return
             }
             this.createGaugeData()
-            this.renderChart()
+            if(this.chartInstance) {
+              this.chartInstance?.update()
+            } else {
+              this.renderChart()
+            }
           return
       }
     })
