@@ -90,7 +90,6 @@ export class WidgetBarchart extends LitElement {
 		const demoCanvas: HTMLCanvasElement = this.shadowRoot?.querySelector('#acquisitions') as any;
 
 		if(!demoCanvas) { return }
-
     this.chartInstance = new Chart(
 			demoCanvas,
 			{
@@ -114,12 +113,12 @@ export class WidgetBarchart extends LitElement {
   static styles = css`
     :host {
       display: inline-block;
-      margin: 16px;
       color: var(--re-bar-text-color, #000);
       font-family: sans-serif;
-    }
-    div#wrapper {
-      width: 800px;
+      padding: 16px;
+      box-sizing: border-box;
+      position: relative;
+      margin: auto;
     }
     header {
       display: flex;
@@ -143,13 +142,11 @@ export class WidgetBarchart extends LitElement {
 
   render() {
     return html`
-      <div id="wrapper">
         <header>
           <h3>${this.barTitle}</h3>
           <p>${this.barDescription}</p>
         </header>
         <canvas id="acquisitions"></canvas>
-      </div>
     `;
   }
 }
