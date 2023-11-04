@@ -1,53 +1,37 @@
 import { html, css, LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import Chart from 'chart.js/auto';
-
-declare global {
-  interface InputData {
-    settings: Settings,
-    dataseries: Data[],
-    style: Style
-  }
-
-  interface Settings {
-    title: string,
-    subTitle: string,
-    label: string
-  }
-
-  interface Style {
-    backgroundColor: string[],
-    borderColor: string[],
-    borderWidth: number
-  }
-
-  interface Data {
-    x: String,
-    y: Number
-  }
-
-}
+import { InputData, Data } from './types.js'
 
 export class WidgetBarchart extends LitElement {
 
-  @property() inputData = {} as InputData
+  @property({type: Object}) 
+  inputData = {} as InputData
 
   @state()
   private demoCanvas: HTMLCanvasElement | undefined = undefined;
+
   @state()
   private chartInstance: any | undefined = undefined;
+
   @state()
   private barTitle: string = 'Bar-chart';
+
   @state()
-  private barDescription: string = 'This is a Bar-chart from the RE-Dahsboard';
+  private barDescription: string = 'This is a Bar-chart from the RE-Dashboard';
+
   @state()
   private barLabel: string = 'Bar-chart label';
+
   @state()
   private dataseries: Data[] = []
+
   @state()
   private backgroundColor: string[] = []
+
   @state()
   private borderColor: string[] = []
+
   @state()
   private borderWidth: number = 0
 
@@ -65,24 +49,23 @@ export class WidgetBarchart extends LitElement {
             } else {
               this.renderChart()
             }
-          return
       }
     })
   }
 
   createGaugeData() {
-    if(this.inputData && (!this.inputData?.settings?.title || !this.inputData?.dataseries.length)) return
+    if(!this?.inputData?.settings?.title || !this?.inputData?.dataseries.length) return
 
     // Generel
-    this.barTitle = this.inputData.settings.title ? this.inputData.settings.title : this.barTitle
-    this.barDescription = this.inputData.settings.subTitle ? this.inputData.settings.subTitle : this.barDescription
-    this.barLabel = this.inputData.settings.label ? this.inputData.settings.label : this.barLabel
-    this.dataseries = this.inputData.dataseries ? this.inputData.dataseries : []
+    this.barTitle = this.inputData.settings.title ?? this.barTitle
+    this.barDescription = this.inputData.settings.subTitle ?? this.barDescription
+    this.barLabel = this.inputData.settings.label ?? this.barLabel
+    this.dataseries = this.inputData.dataseries ?? []
 
     // Style
-    this.backgroundColor = this.inputData.style.backgroundColor ? this.inputData.style.backgroundColor : this.backgroundColor
-    this.borderColor = this.inputData.style.borderColor ? this.inputData.style.borderColor : this.borderColor
-    this.borderWidth = this.inputData.style.borderWidth ? this.inputData.style.borderWidth : this.borderWidth
+    this.backgroundColor = this.inputData.style.backgroundColor ?? this.backgroundColor
+    this.borderColor = this.inputData.style.borderColor ?? this.borderColor
+    this.borderWidth = this.inputData.style.borderWidth ?? this.borderWidth
 
   }
 
