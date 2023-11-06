@@ -4,7 +4,12 @@ import commonjs from "@rollup/plugin-commonjs";
 import babel from "@rollup/plugin-babel";
 
 export default {
-    input: './src/widget-barchart.ts',
+    // if you use createSpaConfig, you can use your index.html as entrypoint,
+    // any <script type="module"> inside will be bundled by rollup
+    input: ['./src/widget-barchart.ts'],
+    treeshake: {
+        moduleSideEffects: false
+    },
     output: {
         dir: './dist',
         name: 'widget-barchart_bundle',
@@ -12,9 +17,13 @@ export default {
         format: 'esm'
     },
     plugins: [
-        typescript({ sourceMap: true }),
+        typescript(),
         nodeResolve(),
         commonjs({}),
         babel({ babelHelpers: 'bundled' })
     ]
+
+    // alternatively, you can use your JS as entrypoint for rollup and
+    // optionally set a HTML template manually
+    // input: './app.js',
 };

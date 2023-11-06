@@ -1,9 +1,9 @@
 {
   "name": "widget-barchart",
-  "description": "REWidget widget-barchart",
+  "description": "Webcomponent widget-barchart following open-wc recommendations",
   "license": "MIT",
   "author": "widget-barchart",
-  "version": "1.0.1",
+  "version": "1.4.0",
   "type": "module",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
@@ -15,60 +15,29 @@
     "analyze": "cem analyze --litelement",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
     "build": "rollup -c rollup.config.js",
-    "prepublish": "rollup -c rollup.config.js",
-    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
-    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore"
+    "prepublish": "rollup -c rollup.config.js"
   },
   "dependencies": {
     "chart.js": "^4.4.0",
-    "lit": "^3.0.2"
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "chartjs-adapter-dayjs-4": "^1.0.4",
+    "chartjs-adapter-moment": "^1.0.1",
+    "date-fns": "^2.30.0",
+    "dayjs": "^1.11.10",
+    "lit": "^3.0.2",
+    "moment": "^2.29.4",
+    "tinycolor2": "^1.6.0"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.9.0",
-    "@open-wc/eslint-config": "^12.0.2",
-    "@typescript-eslint/eslint-plugin": "^6.9.1",
-    "@typescript-eslint/parser": "^6.9.1",
-    "@web/dev-server": "^0.4.0",
-    "concurrently": "^8.2.2",
-    "eslint": "^8.53.0",
-    "eslint-config-prettier": "^9.0.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.0.2",
-    "prettier": "^3.0.3",
-    "tslib": "^2.6.2",
-    "typescript": "^5.2.2",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-typescript": "^11.1.5"
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@web/dev-server": "^0.4.0",
+    "concurrently": "^8.2.2",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2"
   },
-  "customElements": "custom-elements.json",
-  "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "extends": [
-      "@open-wc",
-      "prettier"
-    ],
-    "plugins": [
-      "@typescript-eslint"
-    ],
-    "rules": {
-      "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": [
-        "error"
-      ],
-      "import/no-unresolved": "off",
-      "import/extensions": [
-        "error",
-        "always",
-        {
-          "ignorePackages": true
-        }
-      ]
-    }
-  },
-  "prettier": {
-    "singleQuote": true,
-    "arrowParens": "avoid"
-  }
+  "customElements": "custom-elements.json"
 }

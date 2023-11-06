@@ -1,37 +1,79 @@
 {
   "settings": {
-    "title": "Bar-chart",
-    "subTitle": "This is a Bar-chart from the RE-Dashboard",
-    "label": "Bar-chart label"
+      "title": "A Chart Demo",
+      "subTitle": "This is a Sub title",
+      "horizontal": true,
+      "xAxisLabel": "Time",
+      "yAxisLabel": "Temperature"
   },
-  "style": {
-      "backgroundColor": [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-        "rgba(255, 205, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(201, 203, 207, 0.2)"
-      ],
-      "borderColor": [
-        "rgb(255, 99, 132)",
-        "rgb(255, 159, 64)",
-        "rgb(255, 205, 86)",
-        "rgb(75, 192, 192)",
-        "rgb(54, 162, 235)",
-        "rgb(153, 102, 255)",
-        "rgb(201, 203, 207)"
-      ],
-      "borderWidth": 1
+  "dataseries": [{
+      "label": "Demo Bar",
+      "order": 3,
+      "stack": "2",
+      "barThickness": 20,
+      "backgroundColor": "#D7BBF5",
+      "borderColor": "#A076F9",
+      "borderRadius": 10,
+      "borderWidth": 2,
+      "data": [{
+              "x": "2023-11-04T22:47:52.351152+00:00",
+              "y": 60
+          },
+          {
+              "x": "2023-11-05T22:47:52.351152+00:00",
+              "y": -30
+          },
+          {
+              "x": "2023-11-06T22:47:52.351152+00:00",
+              "y": 6
+          },
+          {
+              "x": "2023-11-07T22:47:52.351152+00:00",
+              "y": 19
+          },
+          {
+              "x": "2023-11-10T22:47:52.351152+00:00",
+              "y": 72
+          }]
   },
-  "dataseries": [
-    { "x": 2010, "y": 10 },
-    { "x": 2011, "y": 20 },
-    { "x": 2012, "y": 15 },
-    { "x": 2013, "y": 25 },
-    { "x": 2014, "y": 22 },
-    { "x": 2015, "y": 30 },
-    { "x": 2016, "y": 28 }
-  ]
+  {
+      "label": "Demo Line",
+      "order": 2,
+      "stack": "2",
+      "backgroundColor": "#AFF6F9",
+      "borderColor": "#47BBF5bb",
+      "borderWidth": 2,
+      "borderRadius:": 4,
+      "borderDash": "[10, 10]",
+      "data": [{
+              "x": "2023-11-03T22:47:52.351152+00:00",
+              "y": 20,
+              "pivot": "Frankfurt"
+          },
+          {
+              "x": "2023-11-05T17:47:52.351152+00:00",
+              "y": 55,
+              "pivot": "Berlin"
+          },
+          {
+              "x": "2023-11-06T09:47:52.351152+00:00",
+              "y": 60,
+              "pivot": "Frankfurt"
+          },
+          {
+              "x": "2023-11-08T22:47:52.351152+00:00",
+              "y": 1,
+              "pivot": "Berlin"
+          },
+          {
+              "x": "2023-11-10T22:47:52.351152+00:00",
+              "y": 9,
+              "pivot": "Berlin"
+          },
+          {
+              "x": "2023-11-11T22:47:52.351152+00:00",
+              "y": 20,
+              "pivot": "Frankfurt"
+          }]
+  }]
 }
