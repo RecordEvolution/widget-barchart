@@ -24,15 +24,20 @@
     import { html, render } from 'lit';
     import '../dist/src/widget-barchart.js';
     import data from '../src/default-data.json' assert { type: 'json' };
+    
+    const keyPathsToRandomize = ['dataseries.1.data.1.y', 'settings.title'];
+    setInterval(() => {
+      const randomizedObj = randomizeObjectValues(data, keyPathsToRandomize);
 
-    render(
-      html`
-        <widget-barchart .inputData=${data}>
-          some light-dom
-        </widget-barchart>
-      `,
-      document.querySelector('#demo')
-    );
+      render(
+        html`
+          <widget-barchart .inputData=${randomizedObj}>
+            some light-dom
+          </widget-barchart>
+        `,
+        document.querySelector('#demo')
+      )}
+      , 1000)
   </script>
 </body>
 </html>
