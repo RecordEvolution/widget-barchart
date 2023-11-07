@@ -45,6 +45,9 @@ export class WidgetBarchart extends LitElement {
 
       // pivot data
       const distincts = [...new Set(ds.data.map((d: Data) => d.pivot))]
+      const derivedBgColors = tinycolor(ds.backgroundColor).monochromatic(distincts.length).map((c: any) => c.toHexString())
+      const derivedBdColors = tinycolor(ds.borderColor).monochromatic(distincts.length).map((c: any) => c.toHexString())
+
       if (distincts.length > 1) {
         const darker = 100 / distincts.length
         distincts.forEach((piv, i) => {
@@ -53,8 +56,8 @@ export class WidgetBarchart extends LitElement {
             order: ds.order,
             stack: ds.stack || `${ds.label}-${piv}-${i}`,
             barThickness: ds.barThickness,
-            backgroundColor: tinycolor(ds.backgroundColor).darken(darker * i).toString(),
-            borderColor: tinycolor(ds.borderColor).darken(darker * i).toString(),
+            backgroundColor: derivedBgColors[i],
+            borderColor: derivedBdColors[i],
             borderWidth: ds.borderWidth,
             borderDash: ds.borderDash,
             borderRadius: ds.borderRadius,
