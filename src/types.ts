@@ -5,6 +5,7 @@ export interface Settings {
     horizontal: boolean
     xAxisLabel: string
     yAxisLabel: string
+    columnLayout: boolean
 }
 
 export interface Data {
@@ -16,6 +17,7 @@ export interface Data {
 export interface Dataseries {
     label: string
     order: number
+    chartName: string
     stack: string
     barThickness: number
     backgroundColor: string
