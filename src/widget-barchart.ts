@@ -93,14 +93,13 @@ export class WidgetBarchart extends LitElement {
         }
         this.canvasList.get(ds.chartName)?.dataSets.push(ds)
       }
-
     })
     // prevent duplicate operations
     this.inputData.dataseries = []
   }
 
   applyInputData() {
-    console.log('barchart datasets', this.canvasList)
+    // console.log('barchart datasets', this.canvasList)
     // update chart info
     this.canvasList.forEach(({chart, dataSets}) => {
       if (chart) {
