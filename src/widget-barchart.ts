@@ -163,6 +163,8 @@ export class WidgetBarchart extends LitElement {
     margin: auto;
   }
 
+  .paging:not([active]) { display: none !important; }
+
   .columnLayout {
     flex-direction: column;
   }
@@ -203,6 +205,9 @@ export class WidgetBarchart extends LitElement {
     margin: 10px 0 0 0;
     max-width: 300px;
     font-size: 14px;
+    white-space: nowrap;    
+    overflow: hidden;
+    text-overflow: ellipsis;
     line-height: 17px;
   }
 `; 
@@ -211,8 +216,8 @@ export class WidgetBarchart extends LitElement {
     return html`
       <div class="wrapper">
         <header>
-          <h3>${this?.inputData?.settings?.title}</h3>
-          <p>${this?.inputData?.settings?.subTitle}</p>
+          <h3 class="paging" ?active=${this.inputData?.settings?.title}>${this.inputData?.settings?.title}</h3>
+          <p class="paging" ?active=${this.inputData?.settings?.subTitle}>${this.inputData?.settings?.subTitle}</p>
         </header>
         <div class="chart-container ${this?.inputData?.settings.columnLayout ? 'columnLayout': ''}">
           ${repeat(this.canvasList, ([chartName, chartM]) => chartName, ([chartName]) => html`
