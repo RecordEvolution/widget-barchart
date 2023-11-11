@@ -16,13 +16,6 @@ export class WidgetBarchart extends LitElement {
   inputData = {} as InputData
 
   @state()
-  private chartInstance: Chart | undefined = undefined
-  @state()
-  private barTitle: string = 'Bar-chart'
-  @state()
-  private barDescription: string = 'This is a Bar-chart'
-
-  @state()
   private canvasList: Map<string, {chart?: any, dataSets: Dataseries[]}> = new Map()
 
   update(changedProperties: Map<string, any>) {
@@ -44,8 +37,6 @@ export class WidgetBarchart extends LitElement {
 
     if(!this?.inputData?.settings?.title || !this?.inputData?.dataseries.length) return
 
-    this.barTitle = this.inputData.settings.title ?? this.barTitle
-    this.barDescription = this.inputData.settings.subTitle ?? this.barDescription
     // reset all existing chart dataseries
     this.canvasList.forEach(chartM => chartM.dataSets = [])
     this.inputData.dataseries.forEach((ds, j) => {
@@ -220,8 +211,8 @@ export class WidgetBarchart extends LitElement {
     return html`
       <div class="wrapper">
         <header>
-          <h3>${this.barTitle}</h3>
-          <p>${this.barDescription}</p>
+          <h3>${this?.inputData?.settings?.title}</h3>
+          <p>${this?.inputData?.settings?.subTitle}</p>
         </header>
         <div class="chart-container ${this?.inputData?.settings.columnLayout ? 'columnLayout': ''}">
           ${repeat(this.canvasList, ([chartName, chartM]) => chartName, ([chartName]) => html`
