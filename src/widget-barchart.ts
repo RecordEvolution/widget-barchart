@@ -2,7 +2,7 @@ import { html, css, LitElement, PropertyValueMap } from 'lit'
 import { repeat } from 'lit/directives/repeat.js'
 import { property, state } from 'lit/decorators.js'
 import Chart, { ChartDataset } from 'chart.js/auto'
-// @ts-ignore
+
 import tinycolor from "tinycolor2"
 // This does not work. See comments at the end of the file.
 // import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm'
@@ -39,7 +39,7 @@ export class WidgetBarchart extends LitElement {
 
     // reset all existing chart dataseries
     this.canvasList.forEach(chartM => chartM.dataSets = [])
-    this.inputData.dataseries.forEach((ds, j) => {
+    this.inputData.dataseries.sort((a, b) => a.order - b.order).forEach((ds, j) => {
       ds.chartName = ds.chartName ?? ''
       if (ds.borderDash && typeof ds.borderDash === 'string') ds.borderDash = JSON.parse(ds.borderDash)
 
