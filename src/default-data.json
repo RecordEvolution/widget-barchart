@@ -1,7 +1,6 @@
 {
   "settings": {
-      "title": "A Chart Demo",
-      "subTitle": "This is a Sub title",
+
       "horizontal": true,
       "xAxisLabel": "Time",
       "yAxisLabel": "Temperature"
