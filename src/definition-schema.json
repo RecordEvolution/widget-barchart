@@ -16,7 +16,7 @@
                     "type": "string"
                 },
                 "horizontal": {
-                    "title": "Horizontal Bars in a Chart",
+                    "title": "Horizontal Bars",
                     "type": "boolean"
                 },
                 "xAxisLabel": {
