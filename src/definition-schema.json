@@ -1,6 +1,6 @@
 
 {
-    "title": "Configure the Chart",
+    "title": "Configure the Bar Chart",
     "type": "object",
     "properties": {
         "settings": {
