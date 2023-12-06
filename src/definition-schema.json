@@ -9,31 +9,36 @@
             "properties": {
                 "title": {
                     "title": "Title",
-                    "type": "string"
+                    "type": "string",
+                    "order": 1
                 },
                 "subTitle": {
                     "title": "Subtitle",
-                    "type": "string"
-                },
-                "horizontal": {
-                    "title": "Horizontal Bars",
-                    "type": "boolean"
+                    "type": "string",
+                    "order": 2
                 },
                 "xAxisLabel": {
                     "title": "X-Axis Label",
-                    "type": "string"
+                    "type": "string",
+                    "order": 3
                 },
                 "yAxisLabel": {
                     "title": "Y-Axis Label",
-                    "type": "string"
+                    "type": "string",
+                    "order": 4
+                },
+                "horizontal": {
+                    "title": "Horizontal Bars",
+                    "type": "boolean",
+                    "order": 5
                 },
                 "columnLayout": {
                     "Title": "Vertical Chart Layout",
                     "description": "When multiple charts are drawn, then they will be layed out horizontically or vertically.",
-                    "type": "boolean"
+                    "type": "boolean",
+                    "order": 6
                 }
-            },
-            "required": ["horizontal"]
+            }
         },
         "dataseries": {
             "title": "Dataseries",
@@ -44,71 +49,71 @@
                     "label": {
                         "title": "Label",
                         "description": "The name for this data series",
-                        "type": "string"
-                    },
-                    "order": {
-                        "title": "Draw Order",
-                        "description": "Determines the draw order of the series. Dataseries with lower numbers are drawn on top of ones with higher numbers.",
-                        "type": "number"
+                        "type": "string",
+                        "order": 1
                     },
                     "chartName": {
                         "title": "Chart",
-                        "description": "If two dataseries have the same ''Chart'' name, they will be drawn in the same chart. Otherwise they will get their own chart. If the name ends with #pivot# then a separat chart will be drawn for each pivoted dataseries.",
-                        "type": "string"
+                        "description": "If two dataseries have the same 'Chart' name, they will be drawn in the same chart. Otherwise they will get their own chart. If the name ends with #pivot# then a separat chart will be drawn for each pivoted dataseries.",
+                        "type": "string",
+                        "order": 2
                     },
                     "stack": {
-                        "title": "Stack Name",
-                        "description": "To stack series on top of each other give them the same stack name.",
-                        "type": "string"
+                        "title": "Stack",
+                        "description": "To stack series on top of each other within one chart, give them the same stack name.",
+                        "type": "string",
+                        "order": 3
                     },
                     "barThickness": {
                         "title": "Bar Thickness",
                         "description": "The Thickness of the bar in pixels",
-                        "type": "number"
+                        "type": "number",
+                        "order": 4
                     },
                     "backgroundColor": {
-                        "title": "Point or Bar Color",
-                        "description": "The inner color of the bars if you chose Drawing Type ''bar'' or the inner colors of the points if you chose Drawing Type ''line''.",
-                        "type": "color"
+                        "title": "Bar Color",
+                        "description": "The inner color of the bars.",
+                        "type": "color",
+                        "order": 5
                     },
                     "borderColor": {
-                        "title": "Line Color",
-                        "type": "color"
+                        "title": "Border Color",
+                        "description": "The border color of the bars.",
+                        "type": "color",
+                        "order": 6
                     },
                     "borderWidth": {
-                        "title": "Line Width",
-                        "description": "In case of Drawing Type ''bar'' this determines the bar''s border line width.",
-                        "type": "number"
-                    },
-                    "borderDash": {
-                        "title": "Line Dash Style",
-                        "description": "Specify dash length and space-between-dashes length like this: [10, 5].",
-                        "type": "string"
+                        "title": "Border Width",
+                        "type": "number",
+                        "order": 7
                     },
                     "borderRadius": {
                         "title": "Bar Corner Radius",
                         "description": "Number in pixels for a rounding effect on the bars.",
-                        "type": "number"
+                        "type": "number",
+                        "order": 8
                     },
                     "data": {
                         "title": "Data",
                         "description": "The data used to draw this data series.",
                         "type": "array",
-                        "buffersize": 1000,
+                        "buffersize": 100,
                         "items": {
                             "type": "object",
                             "properties": {
                                 "x": {
-                                    "description": "If timeseries is checked in the settings, then this should be an ISO String date like 2023-11-04T22:47:52.351152+00:00. But this works with many other formats as well.",
-                                    "type": "string"
+                                    "type": "string",
+                                    "order": 1
                                 },
                                 "y": {
-                                    "type": "number"
+                                    "type": "number",
+                                    "order": 2
                                 },
                                 "pivot": {
                                     "title": "Pivot Column",
-                                    "description": "You can specify a column in the input data to autogenerate dataseries for each distinct entry in this column. E.g. if you have a table with columns [city, timestamp, temperature] and specify ''city'' as pivot column, then you will get a line for each city.",
-                                    "type": "string"
+                                    "description": "You can specify a column in the input data to autogenerate dataseries for each distinct entry in this column. E.g. if you have a table with columns [city, timestamp, temperature] and specify 'city' as pivot column, then you will get a line for each city.",
+                                    "type": "string",
+                                    "order": 3
                                 }
                             },
                             "required": ["x", "y"]
@@ -118,6 +123,5 @@
                 "required": ["label", "data"]
             }
         }
-    },
-    "required": ["settings"]
+    }
 }

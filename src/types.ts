@@ -16,14 +16,12 @@ export interface Data {
 
 export interface Dataseries {
     label: string
-    order: number
     chartName: string
     stack: string
     barThickness: number
     backgroundColor: string
     borderColor: string
     borderWidth: number
-    borderDash: string
     borderRadius: number
     data: Data[]
     borderSkipped: boolean

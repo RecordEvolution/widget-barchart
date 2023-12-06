@@ -39,9 +39,8 @@ export class WidgetBarchart extends LitElement {
 
     // reset all existing chart dataseries
     this.canvasList.forEach(chartM => chartM.dataSets = [])
-    this.inputData.dataseries.sort((a, b) => a.order - b.order).forEach((ds, j) => {
+    this.inputData.dataseries.forEach((ds, j) => {
       ds.chartName = ds.chartName ?? ''
-      if (ds.borderDash && typeof ds.borderDash === 'string') ds.borderDash = JSON.parse(ds.borderDash)
 
       // pivot data
       const distincts = [...new Set(ds.data.map((d: Data) => d.pivot))]
@@ -53,13 +52,11 @@ export class WidgetBarchart extends LitElement {
         distincts.forEach((piv, i) => {
           const pds: any = {
             label: ds.label + ' ' + piv,
-            order: ds.order,
             stack: ds.stack || `${ds.label}-${piv}-${i}`,
             barThickness: ds.barThickness,
             backgroundColor: derivedBgColors[i],
             borderColor: derivedBdColors[i],
             borderWidth: ds.borderWidth,
-            borderDash: ds.borderDash,
             borderRadius: ds.borderRadius,
             borderSkipped: false,
             data: ds.data.filter(d => d.pivot === piv).map(d => this.inputData.settings.horizontal ? {x: d.y, y: d.x}: d) // flip the data if layout is horizontal bars

@@ -6,44 +6,12 @@
       "yAxisLabel": "Temperature"
   },
   "dataseries": [{
-      "label": "Demo Bar",
-      "order": 3,
-      "stack": "2",
-      "barThickness": 14,
-      "backgroundColor": "#D7BBF5",
-      "borderColor": "#A076F9",
-      "borderRadius": 10,
-      "borderWidth": 1,
-      "data": [{
-              "x": "2023-11-04",
-              "y": 60
-          },
-          {
-              "x": "2023-11-05",
-              "y": -30
-          },
-          {
-              "x": "2023-11-06",
-              "y": 6
-          },
-          {
-              "x": "2023-11-07",
-              "y": 19
-          },
-          {
-              "x": "2023-11-10",
-              "y": 72
-          }]
-  },
-  {
-      "label": "Demo Line",
-      "order": 2,
+      "label": "Demo",
       "stack": "2",
       "backgroundColor": "#AFF6F9",
       "borderColor": "#47BBF5bb",
       "borderWidth": 2,
       "borderRadius:": 4,
-      "borderDash": "[10, 10]",
       "data": [{
               "x": "2023-11-03",
               "y": 20,
@@ -51,7 +19,7 @@
           },
           {
               "x": "2023-11-05",
-              "y": 55,
+              "y": -55,
               "pivot": "Berlin"
           },
           {
@@ -74,5 +42,33 @@
               "y": 20,
               "pivot": "Frankfurt"
           }]
-  }]
+  },{
+    "label": "Demo Bar",
+    "stack": "2",
+    "barThickness": 24,
+    "backgroundColor": "#D7BBF5",
+    "borderColor": "#A076F9",
+    "borderRadius": 10,
+    "borderWidth": 1,
+    "data": [{
+            "x": "2023-11-04",
+            "y": -60
+        },
+        {
+            "x": "2023-11-05",
+            "y": 30
+        },
+        {
+            "x": "2023-11-06",
+            "y": -6
+        },
+        {
+            "x": "2023-11-07",
+            "y": 19
+        },
+        {
+            "x": "2023-11-10",
+            "y": 72
+        }]
+}]
 }
