@@ -33,7 +33,7 @@
                     "order": 5
                 },
                 "columnLayout": {
-                    "Title": "Vertical Chart Layout",
+                    "title": "Vertical Chart Layout",
                     "description": "When multiple charts are drawn, then they will be layed out horizontically or vertically.",
                     "type": "boolean",
                     "order": 6

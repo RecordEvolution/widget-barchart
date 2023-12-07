@@ -83,7 +83,7 @@ export class WidgetBarchart extends LitElement {
       }
     })
     // prevent duplicate operations
-    this.inputData.dataseries = []
+    // this.inputData.dataseries = []
   }
 
   applyInputData() {
