@@ -50,6 +50,7 @@
                         "title": "Label",
                         "description": "The name for this data series",
                         "type": "string",
+                        "required": true,
                         "order": 1
                     },
                     "chartName": {
@@ -103,10 +104,12 @@
                             "properties": {
                                 "x": {
                                     "type": "string",
+                                    "required": true,
                                     "order": 1
                                 },
                                 "y": {
                                     "type": "number",
+                                    "required": true,
                                     "order": 2
                                 },
                                 "pivot": {
@@ -115,12 +118,10 @@
                                     "type": "string",
                                     "order": 3
                                 }
-                            },
-                            "required": ["x", "y"]
+                            }
                         }
                     }
-                },
-                "required": ["label", "data"]
+                }
             }
         }
     }
