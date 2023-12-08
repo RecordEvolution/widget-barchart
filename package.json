@@ -3,7 +3,7 @@
     "description": "Webcomponent widget-barchart following open-wc recommendations",
     "license": "MIT",
     "author": "widget-barchart",
-    "version": "1.4.2",
+    "version": "1.4.3",
     "type": "module",
     "main": "dist/src/index.js",
     "module": "dist/src/index.js",
