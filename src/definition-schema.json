@@ -6,6 +6,7 @@
         "settings": {
             "title": "Global Settings",
             "type": "object",
+            "order": 1,
             "properties": {
                 "title": {
                     "title": "Title",
@@ -43,6 +44,7 @@
         "dataseries": {
             "title": "Dataseries",
             "type": "array",
+            "order": 2,
             "items": {
                 "type": "object",
                 "properties": {
@@ -98,6 +100,7 @@
                         "title": "Data",
                         "description": "The data used to draw this data series.",
                         "type": "array",
+                        "order": 9,
                         "buffersize": 100,
                         "items": {
                             "type": "object",
