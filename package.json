@@ -5,12 +5,12 @@
     "author": "widget-barchart",
     "version": "1.4.3",
     "type": "module",
-    "main": "dist/src/index.js",
-    "module": "dist/src/index.js",
-    "exports": {
-        ".": "./dist/src/index.js",
-        "./widget-barchart.js": "./dist/src/widget-barchart.js"
-    },
+    "main": "dist/widget-barchart.js",
+    "types": "dist/src/widget-barchart.d.ts",
+    "files": [
+        "dist",
+        "src"
+    ],
     "scripts": {
         "analyze": "cem analyze --litelement",
         "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
