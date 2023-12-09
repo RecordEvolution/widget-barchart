@@ -30,7 +30,8 @@ export class WidgetBarchart extends LitElement {
   }
 
   protected firstUpdated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
-      this.applyInputData()
+    this.transformInputData()
+    this.applyInputData()
   }
 
   transformInputData() {
@@ -83,24 +84,25 @@ export class WidgetBarchart extends LitElement {
       }
     })
     // prevent duplicate operations
-    // this.inputData.dataseries = []
+    this.inputData.dataseries = []
   }
 
   applyInputData() {
     // console.log('barchart datasets', this.canvasList)
     // update chart info
+    this.createChart()
+
     this.canvasList.forEach(({chart, dataSets}) => {
       if (chart) {
         chart.data.datasets = dataSets
         chart?.update('resize')
-      } else {
-        this.createChart()
       }
     })
   }
 
   createChart() {
     this.canvasList.forEach((chartM, chartName) => {
+      if (chartM.chart) return
       const canvas = this.shadowRoot?.querySelector(`[name="${chartName}"]`) as HTMLCanvasElement
       if (!canvas) return
       // console.log('chartM', canvas, chartM.chart)
