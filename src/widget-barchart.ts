@@ -18,6 +18,8 @@ export class WidgetBarchart extends LitElement {
   @state()
   private canvasList: Map<string, {chart?: any, dataSets: Dataseries[]}> = new Map()
 
+  version: string = 'versionplaceholder'
+
   update(changedProperties: Map<string, any>) {
     changedProperties.forEach((oldValue, propName) => {
       if (propName === 'inputData') {
@@ -229,7 +231,7 @@ export class WidgetBarchart extends LitElement {
     `;
   }
 }
-window.customElements.define('widget-barchart', WidgetBarchart)
+window.customElements.define('widget-barchart-versionplaceholder', WidgetBarchart)
 
 // ############################################### WORKAROUND #######################################################################
 //
