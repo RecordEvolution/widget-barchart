@@ -47,6 +47,7 @@
             "order": 2,
             "items": {
                 "type": "object",
+                "required": ["label"],
                 "properties": {
                     "label": {
                         "title": "Label",
@@ -77,12 +78,14 @@
                         "title": "Bar Color",
                         "description": "The inner color of the bars.",
                         "type": "color",
+                        "color": true,
                         "order": 5
                     },
                     "borderColor": {
                         "title": "Border Color",
                         "description": "The border color of the bars.",
                         "type": "color",
+                        "color": true,
                         "order": 6
                     },
                     "borderWidth": {
@@ -104,6 +107,7 @@
                         "buffersize": 100,
                         "items": {
                             "type": "object",
+                            "required": ["x", "y"],
                             "properties": {
                                 "x": {
                                     "type": "string",
@@ -111,7 +115,7 @@
                                     "order": 1
                                 },
                                 "y": {
-                                    "type": "number",
+                                    "type": "string",
                                     "required": true,
                                     "order": 2
                                 },

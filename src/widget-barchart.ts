@@ -1,19 +1,22 @@
 import { html, css, LitElement, PropertyValueMap } from 'lit'
 import { repeat } from 'lit/directives/repeat.js'
 import { property, state } from 'lit/decorators.js'
-import Chart, { ChartDataset } from 'chart.js/auto'
+import Chart from 'chart.js/auto'
+import { ConfigureTheBarChart } from './definition-schema.js'
 
 import tinycolor from "tinycolor2"
 // This does not work. See comments at the end of the file.
 // import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm'
 // import 'chartjs-adapter-moment'
 // import 'chartjs-adapter-date-fns'
-import { InputData, Data, Dataseries } from './types.js'
+
+type Dataseries = Exclude<ConfigureTheBarChart['dataseries'], undefined>[number]
+type Data = Exclude<Dataseries['data'], undefined>[number]
 
 export class WidgetBarchart extends LitElement {
   
   @property({type: Object}) 
-  inputData = {} as InputData
+  inputData?: ConfigureTheBarChart
 
   @state()
   private canvasList: Map<string, {chart?: any, dataSets: Dataseries[]}> = new Map()
@@ -38,7 +41,7 @@ export class WidgetBarchart extends LitElement {
 
   transformInputData() {
 
-    if (!this?.inputData?.dataseries.length) return
+    if (!this?.inputData?.dataseries?.length) return
 
     // reset all existing chart dataseries
     this.canvasList.forEach(chartM => chartM.dataSets = [])
@@ -46,7 +49,7 @@ export class WidgetBarchart extends LitElement {
       ds.chartName = ds.chartName ?? ''
 
       // pivot data
-      const distincts = [...new Set(ds.data.map((d: Data) => d.pivot))]
+      const distincts = [...new Set(ds.data?.map((d: Data) => d.pivot))]
       const derivedBgColors = tinycolor(ds.backgroundColor).monochromatic(distincts.length).map((c: any) => c.toHexString())
       const derivedBdColors = tinycolor(ds.borderColor).monochromatic(distincts.length).map((c: any) => c.toHexString())
 
@@ -62,10 +65,10 @@ export class WidgetBarchart extends LitElement {
             borderWidth: ds.borderWidth,
             borderRadius: ds.borderRadius,
             borderSkipped: false,
-            data: ds.data.filter(d => d.pivot === piv).map(d => this.inputData.settings.horizontal ? {x: d.y, y: d.x}: d) // flip the data if layout is horizontal bars
+            data: ds.data?.filter(d => d.pivot === piv).map(d => this.inputData?.settings?.horizontal ? {x: d.y, y: d.x}: d) // flip the data if layout is horizontal bars
           }
           // If the chartName ends with :pivot: then create a seperate chart for each pivoted dataseries
-          const chartName = ds.chartName.endsWith('#pivot#') ? ds.chartName + piv : ds.chartName
+          const chartName = ds.chartName?.endsWith('#pivot#') ? ds.chartName + piv : ds.chartName ?? ''
           if (!this.canvasList.has(chartName)) {
             // initialize new charts
             this.canvasList.set(chartName, {chart: undefined, dataSets: [] as Dataseries[]})
@@ -74,7 +77,7 @@ export class WidgetBarchart extends LitElement {
         })
       } else {
         // flip the data if layout is horizontal bars
-        ds.data = ds.data.map(d => this.inputData.settings.horizontal ? {x: d.y, y: d.x}: d)
+        ds.data = ds.data?.map(d => this.inputData?.settings?.horizontal ? {x: d.y, y: d.x}: d)
         ds.borderSkipped = false
         ds.stack = ds.stack || `${ds.label}-${j}`
 
@@ -117,7 +120,7 @@ export class WidgetBarchart extends LitElement {
             datasets: chartM.dataSets
           },
           options: {
-            indexAxis: this.inputData.settings.horizontal ? 'y': 'x',
+            indexAxis: this.inputData?.settings?.horizontal ? 'y': 'x',
             responsive: true,
             maintainAspectRatio: false,
             animations: {
@@ -135,15 +138,15 @@ export class WidgetBarchart extends LitElement {
             scales: {
               x: {
                 title: {
-                  display: !!this.inputData.settings.xAxisLabel,
-                  text: this.inputData.settings.horizontal ? this.inputData.settings.yAxisLabel : this.inputData.settings.xAxisLabel
+                  display: !!this.inputData?.settings?.xAxisLabel,
+                  text: this.inputData?.settings?.horizontal ? this.inputData.settings.yAxisLabel : this.inputData?.settings?.xAxisLabel
                 }
                 , stacked: true
               },
               y: {
                 title: {
-                  display: !!this.inputData.settings.yAxisLabel,
-                  text: this.inputData.settings.horizontal ? this.inputData.settings.xAxisLabel : this.inputData.settings.yAxisLabel
+                  display: !!this.inputData?.settings?.yAxisLabel,
+                  text: this.inputData?.settings?.horizontal ? this.inputData.settings.xAxisLabel : this.inputData?.settings?.yAxisLabel
                 }
                 , stacked: true
               }
@@ -220,7 +223,7 @@ export class WidgetBarchart extends LitElement {
           <h3 class="paging" ?active=${this.inputData?.settings?.title}>${this.inputData?.settings?.title}</h3>
           <p class="paging" ?active=${this.inputData?.settings?.subTitle}>${this.inputData?.settings?.subTitle}</p>
         </header>
-        <div class="chart-container ${this?.inputData?.settings.columnLayout ? 'columnLayout': ''}">
+        <div class="chart-container ${this?.inputData?.settings?.columnLayout ? 'columnLayout': ''}">
           ${repeat(this.canvasList, ([chartName, chartM]) => chartName, ([chartName]) => html`
             <div class="sizer">
               <canvas name="${chartName}"></canvas>
