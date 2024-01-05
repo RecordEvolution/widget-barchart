@@ -1,4 +1,3 @@
-
 {
     "title": "Configure the Bar Chart",
     "type": "object",
@@ -47,7 +46,6 @@
             "order": 2,
             "items": {
                 "type": "object",
-                "required": ["label"],
                 "properties": {
                     "label": {
                         "title": "Label",
@@ -107,7 +105,6 @@
                         "buffersize": 100,
                         "items": {
                             "type": "object",
-                            "required": ["x", "y"],
                             "properties": {
                                 "x": {
                                     "type": "string",
