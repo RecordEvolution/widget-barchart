@@ -3,7 +3,7 @@
     "description": "Webcomponent widget-barchart following open-wc recommendations",
     "license": "MIT",
     "author": "widget-barchart",
-    "version": "1.4.10",
+    "version": "1.4.11",
     "type": "module",
     "main": "dist/widget-barchart.js",
     "types": "dist/src/widget-barchart.d.ts",
