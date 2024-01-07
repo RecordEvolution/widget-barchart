@@ -72,7 +72,7 @@ export class WidgetBarchart extends LitElement {
                             .map((d) => (this.inputData?.settings?.horizontal ? { x: d.y, y: d.x } : d)) // flip the data if layout is horizontal bars
                     }
                     // If the chartName ends with :pivot: then create a seperate chart for each pivoted dataseries
-                    const chartName = ds.chartName?.endsWith('#pivot#')
+                    const chartName = ds.chartName?.includes('#pivot#')
                         ? ds.chartName + piv
                         : ds.chartName ?? ''
                     if (!this.canvasList.has(chartName)) {
