@@ -55,44 +55,34 @@ export class WidgetBarchart extends LitElement {
                 .monochromatic(distincts.length)
                 .map((c: any) => c.toHexString())
 
-            if (distincts.length > 1) {
-                const darker = 100 / distincts.length
-                distincts.forEach((piv, i) => {
-                    const pds: any = {
-                        label: (ds.label ?? '') + ' ' + (piv ?? ''),
-                        stack: ds.stack || `${ds.label ?? ''}-${piv ?? ''}-${i}`,
-                        barThickness: ds.barThickness,
-                        backgroundColor: derivedBgColors[i],
-                        borderColor: derivedBdColors[i],
-                        borderWidth: ds.borderWidth,
-                        borderRadius: ds.borderRadius,
-                        borderSkipped: false,
-                        data: ds.data
-                            ?.filter((d) => d.pivot === piv)
-                            .map((d) => (this.inputData?.settings?.horizontal ? { x: d.y, y: d.x } : d)) // flip the data if layout is horizontal bars
-                    }
-                    // If the chartName ends with :pivot: then create a seperate chart for each pivoted dataseries
-                    const chartName = ds.chartName?.includes('#pivot#')
-                        ? ds.chartName + piv
-                        : ds.chartName ?? ''
-                    if (!this.canvasList.has(chartName)) {
-                        // initialize new charts
-                        this.canvasList.set(chartName, { chart: undefined, dataSets: [] as Dataseries[] })
-                    }
-                    this.canvasList.get(chartName)?.dataSets.push(pds)
-                })
-            } else {
-                // flip the data if layout is horizontal bars
-                ds.data = ds.data?.map((d) => (this.inputData?.settings?.horizontal ? { x: d.y, y: d.x } : d))
-                ds.borderSkipped = false
-                ds.stack = ds.stack || `${ds.label}-${j}`
-
-                if (!this.canvasList.has(ds.chartName)) {
-                    // initialize new charts
-                    this.canvasList.set(ds.chartName, { chart: undefined, dataSets: [] as Dataseries[] })
+            const darker = 100 / distincts.length
+            distincts.forEach((piv, i) => {
+                const prefix = piv ? `${piv} - ` : ''
+                const pds: any = {
+                    label: prefix + ds.label ?? '',
+                    stack: ds.stack || `${ds.label ?? ''}-${piv ?? ''}-${i}`,
+                    barThickness: ds.barThickness,
+                    backgroundColor: ds.chartName?.includes('#pivot#')
+                        ? ds.backgroundColor
+                        : derivedBgColors[i],
+                    borderColor: ds.chartName?.includes('#pivot#') ? ds.borderColor : derivedBdColors[i],
+                    borderWidth: ds.borderWidth,
+                    borderRadius: ds.borderRadius,
+                    borderSkipped: false,
+                    data: (distincts.length === 1 ? ds.data : ds.data?.filter((d) => d.pivot === piv))?.map(
+                        (d) => (this.inputData?.settings?.horizontal ? { x: d.y, y: d.x } : d)
+                    ) // flip the data if layout is horizontal bars
                 }
-                this.canvasList.get(ds.chartName)?.dataSets.push(ds)
-            }
+                // If the chartName ends with :pivot: then create a seperate chart for each pivoted dataseries
+                const chartName = ds.chartName?.includes('#pivot#')
+                    ? ds.chartName + '-' + piv
+                    : ds.chartName ?? ''
+                if (!this.canvasList.has(chartName)) {
+                    // initialize new charts
+                    this.canvasList.set(chartName, { chart: undefined, dataSets: [] as Dataseries[] })
+                }
+                this.canvasList.get(chartName)?.dataSets.push(pds)
+            })
         })
         // prevent duplicate operations
         this.inputData.dataseries = []
