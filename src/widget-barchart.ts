@@ -59,8 +59,8 @@ export class WidgetBarchart extends LitElement {
                 const darker = 100 / distincts.length
                 distincts.forEach((piv, i) => {
                     const pds: any = {
-                        label: ds.label + ' ' + piv,
-                        stack: ds.stack || `${ds.label}-${piv}-${i}`,
+                        label: (ds.label ?? '') + ' ' + (piv ?? ''),
+                        stack: ds.stack || `${ds.label ?? ''}-${piv ?? ''}-${i}`,
                         barThickness: ds.barThickness,
                         backgroundColor: derivedBgColors[i],
                         borderColor: derivedBdColors[i],
