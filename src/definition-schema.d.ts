@@ -18,68 +18,82 @@ export type VerticalChartLayout = boolean;
  * The name for this data series
  */
 export type Label = string;
-/**
- * If two dataseries have the same 'Chart' name, they will be drawn in the same chart. Otherwise they will get their own chart. If the name ends with #pivot# then a separat chart will be drawn for each pivoted dataseries.
- */
-export type Chart = string;
-/**
- * To stack series on top of each other within one chart, give them the same stack name.
- */
-export type Stack = string;
-/**
- * The Thickness of the bar in pixels
- */
-export type BarThickness = number;
-/**
- * The inner color of the bars.
- */
-export type BarColor = string;
-/**
- * The border color of the bars.
- */
-export type BorderColor = string;
 export type BorderWidth = number;
 /**
  * Number in pixels for a rounding effect on the bars.
  */
 export type BarCornerRadius = number;
 /**
- * You can specify a column in the input data to autogenerate dataseries for each distinct entry in this column. E.g. if you have a table with columns [city, timestamp, temperature] and specify 'city' as pivot column, then you will get a line for each city.
+ * The Thickness of the bar in pixels
  */
-export type PivotColumn = string;
+export type BarThickness = number;
+/**
+ * If two dataseries have the same 'Chart' name, they will be drawn in the same chart. Otherwise they will get their own chart. If the name contains #split# as substring then a separat chart will be drawn for each split dataseries.
+ */
+export type Chart = string;
+/**
+ * To stack series on top of each other within one chart, give them the same stack name.
+ */
+export type Stack = string;
+export type XValue = string;
+export type YValue = string;
+/**
+ * You can specify a column in the input data to autogenerate dataseries for each distinct entry in this column. E.g. if you have a table with columns [city, timestamp, temperature] and specify 'city' as split column, then you will get a dataseries for each city.
+ */
+export type SplitDataBy = string;
 /**
  * The data used to draw this data series.
  */
 export type Data = {
-  x: string;
-  y: string;
-  pivot?: PivotColumn;
+  x?: XValue;
+  y?: YValue;
+  pivot?: SplitDataBy;
   [k: string]: unknown;
 }[];
 export type Dataseries = {
-  label: Label;
-  chartName?: Chart;
-  stack?: Stack;
-  barThickness?: BarThickness;
+  label?: Label;
   backgroundColor?: BarColor;
   borderColor?: BorderColor;
-  borderWidth?: BorderWidth;
-  borderRadius?: BarCornerRadius;
+  styling?: Styling;
+  advanced?: AdvancedSettings;
   data?: Data;
   [k: string]: unknown;
 }[];
 
-export interface ConfigureTheBarChart {
-  settings?: GlobalSettings;
+export interface InputData {
+  title?: Title;
+  subTitle?: Subtitle;
+  axis?: AxisSettings;
   dataseries?: Dataseries;
   [k: string]: unknown;
 }
-export interface GlobalSettings {
-  title?: Title;
-  subTitle?: Subtitle;
+export interface AxisSettings {
   xAxisLabel?: XAxisLabel;
   yAxisLabel?: YAxisLabel;
   horizontal?: HorizontalBars;
   columnLayout?: VerticalChartLayout;
+  [k: string]: unknown;
+}
+/**
+ * The inner color of the bars.
+ */
+export interface BarColor {
+  [k: string]: unknown;
+}
+/**
+ * The border color of the bars.
+ */
+export interface BorderColor {
+  [k: string]: unknown;
+}
+export interface Styling {
+  borderWidth?: BorderWidth;
+  borderRadius?: BarCornerRadius;
+  barThickness?: BarThickness;
+  [k: string]: unknown;
+}
+export interface AdvancedSettings {
+  chartName?: Chart;
+  stack?: Stack;
   [k: string]: unknown;
 }

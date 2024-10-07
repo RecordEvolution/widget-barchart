@@ -1,5 +1,5 @@
 {
-    "settings": {
+    "axis": {
         "horizontal": true,
         "xAxisLabel": "Time",
         "yAxisLabel": "Temperature"
@@ -7,12 +7,16 @@
     "dataseries": [
         {
             "label": "Demo Bar Berlin",
-            "stack": "2",
             "backgroundColor": "#f1c27b",
             "borderColor": "#dd9e46",
-            "barThickness": 24,
-            "borderRadius": 20,
-            "borderWidth": 2,
+            "styling": {
+                "barThickness": 24,
+                "borderRadius": 20,
+                "borderWidth": 2
+            },
+            "advanced": {
+                "stack": "2"
+            },
             "data": [
                 {
                     "x": "2023-11-05",
@@ -33,12 +37,16 @@
         },
         {
             "label": "Demo Bar",
-            "stack": "2",
             "backgroundColor": "#ff9b9b",
             "borderColor": "#e15656",
-            "barThickness": 24,
-            "borderRadius": 20,
-            "borderWidth": 1,
+            "styling": {
+                "barThickness": 24,
+                "borderRadius": 20,
+                "borderWidth": 1
+            },
+            "advanced": {
+                "stack": "2"
+            },
             "data": [
                 {
                     "x": "2023-11-04",

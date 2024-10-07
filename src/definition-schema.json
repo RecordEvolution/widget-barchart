@@ -1,22 +1,22 @@
 {
-    "title": "Configure the Bar Chart",
+    "title": "InputData",
     "type": "object",
     "properties": {
-        "settings": {
-            "title": "Global Settings",
+        "title": {
+            "title": "Title",
+            "type": "string",
+            "order": 1
+        },
+        "subTitle": {
+            "title": "Subtitle",
+            "type": "string",
+            "order": 2
+        },
+        "axis": {
+            "title": "Axis Settings",
             "type": "object",
-            "order": 1,
+            "order": 3,
             "properties": {
-                "title": {
-                    "title": "Title",
-                    "type": "string",
-                    "order": 1
-                },
-                "subTitle": {
-                    "title": "Subtitle",
-                    "type": "string",
-                    "order": 2
-                },
                 "xAxisLabel": {
                     "title": "X-Axis Label",
                     "type": "string",
@@ -43,7 +43,7 @@
         "dataseries": {
             "title": "Dataseries",
             "type": "array",
-            "order": 2,
+            "order": 4,
             "items": {
                 "type": "object",
                 "properties": {
@@ -54,71 +54,89 @@
                         "required": true,
                         "order": 1
                     },
-                    "chartName": {
-                        "title": "Chart",
-                        "description": "If two dataseries have the same 'Chart' name, they will be drawn in the same chart. Otherwise they will get their own chart. If the name contains #pivot# as substring then a separat chart will be drawn for each pivoted dataseries.",
-                        "type": "string",
-                        "order": 2
-                    },
-                    "stack": {
-                        "title": "Stack",
-                        "description": "To stack series on top of each other within one chart, give them the same stack name.",
-                        "type": "string",
-                        "order": 3
-                    },
-                    "barThickness": {
-                        "title": "Bar Thickness",
-                        "description": "The Thickness of the bar in pixels",
-                        "type": "number",
-                        "order": 4
-                    },
                     "backgroundColor": {
                         "title": "Bar Color",
                         "description": "The inner color of the bars.",
                         "type": "color",
                         "color": true,
-                        "order": 5
+                        "order": 2
                     },
                     "borderColor": {
                         "title": "Border Color",
                         "description": "The border color of the bars.",
                         "type": "color",
                         "color": true,
-                        "order": 6
+                        "order": 3
                     },
-                    "borderWidth": {
-                        "title": "Border Width",
-                        "type": "number",
-                        "order": 7
+                    "styling": {
+                        "title": "Styling",
+                        "description": "",
+                        "type": "object",
+                        "order": 5,
+                        "properties": {
+                            "borderWidth": {
+                                "title": "Border Width",
+                                "type": "number",
+                                "order": 7
+                            },
+                            "borderRadius": {
+                                "title": "Bar Corner Radius",
+                                "description": "Number in pixels for a rounding effect on the bars.",
+                                "type": "number",
+                                "order": 8
+                            },
+                            "barThickness": {
+                                "title": "Bar Thickness",
+                                "description": "The Thickness of the bar in pixels",
+                                "type": "number",
+                                "order": 4
+                            }
+                        }
                     },
-                    "borderRadius": {
-                        "title": "Bar Corner Radius",
-                        "description": "Number in pixels for a rounding effect on the bars.",
-                        "type": "number",
-                        "order": 8
+                    "advanced": {
+                        "title": "Advanced Settings",
+                        "description": "",
+                        "type": "object",
+                        "order": 6,
+                        "properties": {
+                            "chartName": {
+                                "title": "Chart",
+                                "description": "If two dataseries have the same 'Chart' name, they will be drawn in the same chart. Otherwise they will get their own chart. If the name contains #split# as substring then a separat chart will be drawn for each split dataseries.",
+                                "type": "string",
+                                "order": 2
+                            },
+                            "stack": {
+                                "title": "Stack",
+                                "description": "To stack series on top of each other within one chart, give them the same stack name.",
+                                "type": "string",
+                                "order": 3
+                            }
+                        }
                     },
                     "data": {
                         "title": "Data",
                         "description": "The data used to draw this data series.",
                         "type": "array",
-                        "order": 9,
+                        "order": 4,
                         "buffersize": 100,
                         "items": {
                             "type": "object",
                             "properties": {
                                 "x": {
+                                    "title": "X-Value",
                                     "type": "string",
                                     "required": true,
                                     "order": 1
                                 },
                                 "y": {
+                                    "title": "Y-Value",
                                     "type": "string",
                                     "required": true,
                                     "order": 2
                                 },
                                 "pivot": {
-                                    "title": "Pivot Column",
-                                    "description": "You can specify a column in the input data to autogenerate dataseries for each distinct entry in this column. E.g. if you have a table with columns [city, timestamp, temperature] and specify 'city' as pivot column, then you will get a line for each city.",
+                                    "title": "Split Data by",
+                                    "description": "You can specify a column in the input data to autogenerate dataseries for each distinct entry in this column. E.g. if you have a table with columns [city, timestamp, temperature] and specify 'city' as split column, then you will get a dataseries for each city.",
                                     "type": "string",
                                     "order": 3
                                 }

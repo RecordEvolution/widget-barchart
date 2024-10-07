@@ -1,45 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-GB">
-<head>
-  <meta charset="utf-8">
-  <title>Barchart</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-    }
-    * {
-      width: 100%;
-      height: 100%;
-    }
-  </style>
-</head>
-<body>
-  <div id="demo"></div>
-  <script src="https://storage.googleapis.com/reswarm-images/ObjectRandomizer.js"></script>
+    <head>
+        <meta charset="utf-8" />
+        <title>Barchart</title>
+        <style>
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+            }
+            * {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="demo"></div>
+        <script src="https://storage.googleapis.com/reswarm-images/ObjectRandomizer.js"></script>
 
-  <script type="module">
-    import { html, render } from 'lit';
-    import '../dist/src/widget-barchart.js';
-    import data from '../src/default-data.json' assert { type: 'json' };
-    
-    const keyPathsToRandomize = ['dataseries.1.data.1.y', 'settings.title'];
-    const inter = setInterval(() => {
-      const randomizedObj = randomizeObjectValues(data, keyPathsToRandomize);
+        <script type="module">
+            import { html, render } from 'lit'
+            import '../dist/src/widget-barchart.js'
+            const response = await fetch('../src/default-data.json')
+            const data = await response.json()
 
-      render(
-        html`
-          <widget-barchart-versionplaceholder .inputData=${randomizedObj}>
-            some light-dom
-          </widget-barchart-versionplaceholder>
-        `,
-        document.querySelector('#demo')
-      )
-      // clearInterval(inter)
+            const keyPathsToRandomize = ['dataseries.1.data.1.y', 'settings.title']
+            const inter = setInterval(() => {
+                const randomizedObj = randomizeObjectValues(data, keyPathsToRandomize)
 
-      }, 1000)
-  </script>
-</body>
+                render(
+                    html`
+                        <widget-barchart-versionplaceholder .inputData=${randomizedObj}>
+                            some light-dom
+                        </widget-barchart-versionplaceholder>
+                    `,
+                    document.querySelector('#demo')
+                )
+                // clearInterval(inter)
+            }, 1000)
+        </script>
+    </body>
 </html>
