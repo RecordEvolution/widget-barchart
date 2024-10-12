@@ -20,22 +20,26 @@
                 "xAxisLabel": {
                     "title": "X-Axis Label",
                     "type": "string",
+                    "dataDrivenDisabled": true,
                     "order": 3
                 },
                 "yAxisLabel": {
                     "title": "Y-Axis Label",
                     "type": "string",
+                    "dataDrivenDisabled": true,
                     "order": 4
                 },
                 "horizontal": {
                     "title": "Horizontal Bars",
                     "type": "boolean",
+                    "dataDrivenDisabled": true,
                     "order": 5
                 },
                 "columnLayout": {
                     "title": "Vertical Chart Layout",
                     "description": "When multiple charts are drawn, then they will be layed out horizontically or vertically.",
                     "type": "boolean",
+                    "dataDrivenDisabled": true,
                     "order": 6
                 }
             }
@@ -43,6 +47,7 @@
         "dataseries": {
             "title": "Dataseries",
             "type": "array",
+            "dataDrivenDisabled": true,
             "order": 4,
             "items": {
                 "type": "object",
@@ -77,12 +82,14 @@
                             "borderWidth": {
                                 "title": "Border Width",
                                 "type": "number",
+                                "dataDrivenDisabled": true,
                                 "order": 7
                             },
                             "borderRadius": {
                                 "title": "Bar Corner Radius",
                                 "description": "Number in pixels for a rounding effect on the bars.",
                                 "type": "number",
+                                "dataDrivenDisabled": true,
                                 "order": 8
                             },
                             "barThickness": {
@@ -103,12 +110,14 @@
                                 "title": "Chart",
                                 "description": "If two dataseries have the same 'Chart' name, they will be drawn in the same chart. Otherwise they will get their own chart. If the name contains #split# as substring then a separat chart will be drawn for each split dataseries.",
                                 "type": "string",
+                                "dataDrivenDisabled": true,
                                 "order": 2
                             },
                             "stack": {
                                 "title": "Stack",
                                 "description": "To stack series on top of each other within one chart, give them the same stack name.",
                                 "type": "string",
+                                "dataDrivenDisabled": true,
                                 "order": 3
                             }
                         }

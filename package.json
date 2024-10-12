@@ -16,6 +16,8 @@
         "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
         "build": "rollup -c rollup.config.js",
         "watch": "rollup -w -c rollup.config.js",
+        "link": "npm link && cd ../RESWARM/frontend && npm link @record-evolution/widget-barchart",
+        "unlink": "npm unlink --global && cd ../RESWARM/frontend && npm unlink @record-evolution/widget-barchart && npm i @record-evolution/widget-barchart",
         "types": "cat src/definition-schema.json | json2ts > src/definition-schema.d.ts",
         "release": "npm version patch --tag-version-prefix='' && git push && git push --tag"
     },
