@@ -12,19 +12,23 @@ import tinycolor, { ColorInput } from 'tinycolor2'
 
 type Dataseries = Exclude<InputData['dataseries'], undefined>[number]
 type Data = Exclude<Dataseries['data'], undefined>[number]
+type ChartCombination = { chartJsInstance?: Chart; dataSets: ChartDataset[] }
 
 export class WidgetBarchart extends LitElement {
     @property({ type: Object })
     inputData?: InputData
 
     @state()
-    private canvasList: Map<string, { chart?: any; dataSets: Dataseries[] }> = new Map()
+    private canvasList: Map<string, ChartCombination> = new Map()
+
+    @state()
+    chartContainer?: HTMLElement | null
 
     version: string = 'versionplaceholder'
 
     update(changedProperties: Map<string, any>) {
         changedProperties.forEach((oldValue, propName) => {
-            if (propName === 'inputData') {
+            if (propName === 'inputData' && this.chartContainer) {
                 this.transformInputData()
                 this.applyInputData()
                 return
@@ -34,15 +38,15 @@ export class WidgetBarchart extends LitElement {
     }
 
     protected firstUpdated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
+        this.chartContainer = this.shadowRoot?.querySelector('.chart-container')
         this.transformInputData()
         this.applyInputData()
     }
 
     transformInputData() {
         if (!this?.inputData?.dataseries?.length) return
-
         // reset all existing chart dataseries
-        this.canvasList.forEach((chartM) => (chartM.dataSets = []))
+        this.canvasList.forEach((chartJsInstance) => (chartJsInstance.dataSets = []))
         this.inputData.dataseries.forEach((ds, j) => {
             ds.chartName = ds.chartName ?? ''
 
@@ -58,8 +62,9 @@ export class WidgetBarchart extends LitElement {
             const darker = 100 / distincts.length
             distincts.forEach((piv, i) => {
                 const prefix = piv ? `${piv} - ` : ''
-                const pds: any = {
+                const pds: ChartDataset = {
                     label: prefix + ds.label,
+                    // @ts-ignore
                     stack: ds.stack || `${ds.label ?? ''}-${piv ?? ''}-${i}`,
                     barThickness: ds.styling?.barThickness,
                     backgroundColor: ds.advanced?.chartName?.includes('#split#')
@@ -71,6 +76,7 @@ export class WidgetBarchart extends LitElement {
                     borderWidth: ds.styling?.borderWidth,
                     borderRadius: ds.styling?.borderRadius,
                     borderSkipped: false,
+                    // @ts-ignore
                     data: (distincts.length === 1 ? ds.data : ds.data?.filter((d) => d.pivot === piv))?.map(
                         (d) => (this.inputData?.axis?.horizontal ? { x: d.y, y: d.x } : d)
                     ) // flip the data if layout is horizontal bars
@@ -78,43 +84,41 @@ export class WidgetBarchart extends LitElement {
                 // If the chartName ends with :pivot: then create a seperate chart for each pivoted dataseries
                 const chartName = ds.advanced?.chartName?.includes('#split#')
                     ? ds.advanced?.chartName + '-' + piv
-                    : ds.advanced?.chartName ?? ''
+                    : (ds.advanced?.chartName ?? '')
                 if (!this.canvasList.has(chartName)) {
                     // initialize new charts
-                    this.canvasList.set(chartName, { chart: undefined, dataSets: [] as Dataseries[] })
+                    this.canvasList.set(chartName, {
+                        chartJsInstance: undefined,
+                        dataSets: [] as ChartDataset[]
+                    })
                 }
                 this.canvasList.get(chartName)?.dataSets.push(pds)
             })
         })
-        // prevent duplicate operations
-        this.inputData.dataseries = []
     }
 
-    applyInputData() {
-        // console.log('barchart datasets', this.canvasList)
-        // update chart info
-        this.createChart()
-
+    async applyInputData() {
         this.requestUpdate()
-        this.canvasList.forEach(({ chart, dataSets }) => {
-            if (chart) {
-                chart.data.datasets = dataSets
-                chart?.update('resize')
+        await this.updateComplete
+        this.createChart()
+        this.canvasList.forEach(({ chartJsInstance, dataSets }) => {
+            if (chartJsInstance) {
+                chartJsInstance.data.datasets = dataSets as ChartDataset[]
+                chartJsInstance?.update('resize')
             }
         })
     }
 
     createChart() {
-        this.canvasList.forEach((chartM, chartName) => {
-            if (chartM.chart) return
+        this.canvasList.forEach((chart, chartName) => {
+            if (chart.chartJsInstance) return
             const canvas = this.shadowRoot?.querySelector(`[name="${chartName}"]`) as HTMLCanvasElement
             if (!canvas) return
-            // console.log('chartM', canvas, chartM.chart)
-            chartM.chart = new Chart(canvas, {
+            // console.log('chartJsInstance', canvas, chartJsInstance.chart)
+            chart.chartJsInstance = new Chart(canvas, {
                 type: 'bar',
                 data: {
-                    // @ts-ignore
-                    datasets: chartM.dataSets
+                    datasets: chart.dataSets
                 },
                 options: {
                     indexAxis: this.inputData?.axis?.horizontal ? 'y' : 'x',
@@ -216,6 +220,16 @@ export class WidgetBarchart extends LitElement {
             text-overflow: ellipsis;
             line-height: 17px;
         }
+        .no-data {
+            font-size: 20px;
+            color: var(--re-text-color, #000);
+            display: flex;
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
     `
 
     render() {
@@ -225,10 +239,11 @@ export class WidgetBarchart extends LitElement {
                     <h3 class="paging" ?active=${this.inputData?.title}>${this.inputData?.title}</h3>
                     <p class="paging" ?active=${this.inputData?.subTitle}>${this.inputData?.subTitle}</p>
                 </header>
+                <div class="paging no-data" ?active=${!this.canvasList.size}>No Data</div>
                 <div class="chart-container ${this?.inputData?.axis?.columnLayout ? 'columnLayout' : ''}">
                     ${repeat(
                         [...this.canvasList.entries()].sort(),
-                        ([chartName, chartM]) => chartName,
+                        ([chartName]) => chartName,
                         ([chartName]) => html`
                             <div class="sizer">
                                 <canvas name="${chartName}"></canvas>
@@ -249,7 +264,7 @@ window.customElements.define('widget-barchart-versionplaceholder', WidgetBarchar
 // So the current solution is to execute the source code here in-line. (moving this to a local file and importing that does not work!)
 // This is the source code of https://github.com/chartjs/chartjs-adapter-date-fns/blob/master/src/index.js
 
-import { _adapters } from 'chart.js'
+import { _adapters, ChartData, ChartDataset, DefaultDataPoint } from 'chart.js'
 
 import {
     parse,
