@@ -20,13 +20,13 @@
                 "xAxisLabel": {
                     "title": "X-Axis Label",
                     "type": "string",
-                    "dataDrivenDisabled": true,
+                    "dataDrivenDisabled": false,
                     "order": 3
                 },
                 "yAxisLabel": {
                     "title": "Y-Axis Label",
                     "type": "string",
-                    "dataDrivenDisabled": true,
+                    "dataDrivenDisabled": false,
                     "order": 4
                 },
                 "horizontal": {
